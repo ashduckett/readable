@@ -83,7 +83,8 @@ function mapStateToProps(state) {
         posts: state.posts,
         comments: state.currentComments,
         sortByValue: state.sortByValue,
-        catFilter: state.catFilter
+        catFilter: state.catFilter,
+        categories: state.categories
     }
 }
 function mapDispatchToProps(dispatch) {

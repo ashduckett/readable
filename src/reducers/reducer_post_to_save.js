@@ -17,10 +17,9 @@ export default function(state = dummyReturn, action) {
         case POST_TO_SAVE_UPDATED:
             return {
                 ...state,
-                [action.field]: action.value
+                [action.fieldName]: action.fieldValue
             }
 
-        // Called on postToSaveEdited(post).
 
         // There isn't an owner on the payload! 
         case POST_TO_SAVE_EDITED:

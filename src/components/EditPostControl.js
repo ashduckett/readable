@@ -6,13 +6,6 @@ import { connect } from 'react-redux'
 class EditPostControl extends Component {
 
     render() {
-
-
-
-        // At this point we want to get hold of the edited posts details.
-        // This should be possible by passing in the latest post into the edit post control.
-
-
         return(
             <NewPostControl postToEdit={this.props.postToSave} editing={true}/>
         )
@@ -27,11 +20,5 @@ function mapStateToProps(state) {
         postToSave: state.postToSave
     }
   }
-  
-/*  function mapDispatchToProps(dispatch) {
-      return bindActionCreators({ addPost, updatePostToSave, editPostToSave, editPost }, dispatch)
-  }*/
-  
   export default connect(mapStateToProps, null)(EditPostControl)
 
-// export default EditPostControl

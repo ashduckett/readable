@@ -26,10 +26,16 @@ export default function(state = dummyReturn, action) {
     switch(action.type) {
         // This fires when text is changed on form entry.
         case COMMENT_TO_SAVE_UPDATED:
+            console.log('comment to save updated called')
             return {
                 ...state,
-                [action.fieldName]: action.value
+                timestamp: Date.now(),
+                [action.fieldName]: action.value,
+                parentId: action.parentId,
+                voteScore: 0
             }
+
+
             case EDIT_COMMENT_INSTIGATED:
             return {
                 ...action.payload

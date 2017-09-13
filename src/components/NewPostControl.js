@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { Button, Modal, FormControl, ControlLabel, FormGroup } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { updatePostToSave, editPostToSave, editPost, addPost } from '../actions/index'
+import { updatePostToSave, editPostToSave, editPost, addPost, postToSaveEdited } from '../actions/index'
 
 class NewPostControl extends Component {
 
@@ -22,46 +22,30 @@ class NewPostControl extends Component {
 
         this.close = this.close.bind(this)
         this.open = this.open.bind(this)
-        this.handleTitleChange = this.handleTitleChange.bind(this)
-        this.handleAuthorChange = this.handleAuthorChange.bind(this)
-        this.handleBodyChange = this.handleBodyChange.bind(this)
-        this.handleCategoryChange = this.handleCategoryChange.bind(this)
         this.handleSave = this.handleSave.bind(this)
     }
 
-  handleTitleChange(e) {
-    this.props.updatePostToSave('title', e.target.value)
-  }
-
-  handleCategoryChange(e) {
-    this.props.updatePostToSave('category', e.target.value)
-  }
-
-  handleAuthorChange(e) {
-    this.props.updatePostToSave('owner', e.target.value)
-  }
-
-  handleBodyChange(e) {
-    this.props.updatePostToSave('body', e.target.value)
-  }
-
+  // This one should just save your post
   handleSave() {
-    this.props.addPost(this.props.postToSave)
+    if(this.props.editing) {
+      this.props.editPost(this.props.latestPost, this.props.postToSave.title, this.props.postToSave.body)  
+    } else {
+      this.props.addPost(this.props.postToSave)
+    }
     this.close()
   }
 
-  handleEdit() {
-
-    this.props.editPost(this.props.latestPost, this.props.postToSave.title, this.props.postToSave.body)
-    this.close()
-
+  handleEdit(fieldName, fieldValue) {
+    this.props.postToSaveEdited(fieldName, fieldValue)
   }
+
+
 
   getValidationState() {
-    const length = this.state.value.length;
+    /*const length = this.state.value.length;
     if (length > 10) return 'success';
     else if (length > 5) return 'warning';
-    else if (length > 0) return 'error';
+    else if (length > 0) return 'error';*/
   }
 
   close() {
@@ -102,7 +86,7 @@ class NewPostControl extends Component {
         <div></div>
       )
     }
-    
+
     return (
       <div>
         <a className="action-link" onClick={this.open}>{this.props.editing ? 'Edit Post' : 'New Post'}</a>
@@ -115,13 +99,13 @@ class NewPostControl extends Component {
             <form>
               <FormGroup controlId="formBasicText" validationState={this.getValidationState()}>
                 <ControlLabel>Author</ControlLabel>
-                <FormControl type="text" value={this.props.postToSave.author} placeholder="Author" onChange={this.handleAuthorChange} />
+                <FormControl type="text" value={this.props.postToSave.author} placeholder="Author" onChange={(e) => {this.handleEdit('owner', e.target.value) }} />
               </FormGroup>
              <FormGroup controlId="formControlsSelect">
                 <ControlLabel>Category</ControlLabel>
-                <FormControl value={this.props.postToSave.category} componentClass="select" placeholder="select" onChange={this.handleCategoryChange}>
+                <FormControl value={this.props.postToSave.category} componentClass="select" placeholder="select" onChange={(e) => {this.handleEdit('category', e.target.value) }}>
                   <option value="None">None</option>
-                  {categories.map((category) => {
+                  {this.props.categories.map((category) => {
                     return(
                       <option key={category.name} value={category.name}>{category.name}</option>    
                     )
@@ -130,17 +114,17 @@ class NewPostControl extends Component {
               </FormGroup>
               <FormGroup controlId="formBasicText" validationState={this.getValidationState()}>
                 <ControlLabel>Title</ControlLabel>
-                <FormControl value={this.props.postToSave.title} type="text" placeholder="Title" onChange={this.handleTitleChange} />
+                <FormControl value={this.props.postToSave.title} type="text" placeholder="Title" onChange={(e) => {this.handleEdit('title', e.target.value)}} />
               </FormGroup>
               <FormGroup controlId="formControlsTextarea">
                 <ControlLabel>Body</ControlLabel>
-                <FormControl value={this.props.postToSave.body} onChange={this.handleBodyChange}componentClass="textarea" placeholder="Body" />
+                <FormControl value={this.props.postToSave.body} onChange={(e) => this.handleEdit('body', e.target.value)} componentClass="textarea" placeholder="Body" />
               </FormGroup>
             </form>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.close}>Close</Button>
-            <Button onClick={() => (this.props.editing ? this.handleEdit() : this.handleSave())}>Save</Button>
+            <Button onClick={this.handleSave}>Save</Button>
           </Modal.Footer>
         </Modal>
       </div>
@@ -152,12 +136,12 @@ function mapStateToProps(state) {
   return {
     categories: state.categories,
     postToSave: state.postToSave,
-    latestPost: state.latestPost
+    latestPost: state.latestPost,
   }
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ addPost, updatePostToSave, editPostToSave, editPost }, dispatch)
+    return bindActionCreators({ addPost, updatePostToSave, editPostToSave, editPost, postToSaveEdited }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewPostControl)

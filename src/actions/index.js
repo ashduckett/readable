@@ -180,7 +180,7 @@ export function editPostToSave(post) {
 // How about an updatePostToSave() method?
 // Then, when you hit save, you could call save passing in the connected-to-the-modal post?
 
-export function commentToSaveEdited(fieldName, value) {
+export function commentToSaveEdited(fieldName, value, parentId) {
 
     // In this case there's no request. We're just passing through the comment to
     // the reducers. In the case of our reducer_comment_to_save reducer, we'll
@@ -190,10 +190,19 @@ export function commentToSaveEdited(fieldName, value) {
     return {
         type: COMMENT_TO_SAVE_UPDATED,
         fieldName,
-        value
+        value,
+        parentId
     }
+}
 
-
+export function postToSaveEdited(fieldName, fieldValue) {
+    console.log('action creator called with fieldName of ' + fieldName)
+    console.log('action creator called with field value of ' + fieldValue)
+    return {
+        type: POST_TO_SAVE_UPDATED,
+        fieldName,
+        fieldValue
+    }
 }
 
 // Assume it's a new comment for now so don't use an id
