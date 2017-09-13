@@ -1,12 +1,19 @@
 import React, { Component } from 'react'
-
+import { bindActionCreators } from 'redux'
+import { changeCategoryFilter } from '../actions/index'
+import { connect } from 'react-redux'
 // Functional or Class based? Can this component be reused in the form and the filter thing on the main page?
 class CategoryDropdown extends Component {
+    handleChange(e) {
+        console.log('category changed', e.target.value)
+        this.props.changeCategoryFilter(e.target.value)
+    }
+    
     render() {
         return(
             <div className="form-group">
                 <label htmlFor="exampleSelect1">Category</label>
-                <select className="form-control">
+                <select className="form-control" onChange={(e) => {this.handleChange(e)}}>
                     <option>None</option>
                     {this.props.categories.map((category) => {
                         return(
@@ -20,4 +27,17 @@ class CategoryDropdown extends Component {
     }
 }
 
-export default CategoryDropdown
+//export default CategoryDropdown
+
+//export default SortByDropdown
+
+function mapStateToProps(state) {
+    return {
+        catFilter: state.catFilter
+    }
+}
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ changeCategoryFilter }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryDropdown)

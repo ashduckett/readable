@@ -22,3 +22,33 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.action-link {
+  cursor: pointer;
+}
+
+.post-detail {
+  background-color: blue;
+  display: flex;
+}
+
+.post-detail .content {
+  background-color: yellow;
+  width: 50%;
+  margin: 0;
+  padding: 0;
+
+}
+
+.button-col {
+  background-color: pink;
+  width: 50%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.buttons {
+  width: 100%;
+  display: flex;
+}

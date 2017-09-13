@@ -1,4 +1,5 @@
 import { POST_TO_SAVE_UPDATED } from '../actions/index'
+import { POST_TO_SAVE_EDITED } from '../actions/index'
 
 // Default return
 const dummyReturn = {
@@ -9,15 +10,32 @@ const dummyReturn = {
     id: '',
 }
 
-
+// Reducer for postToSave
 export default function(state = dummyReturn, action) {
     switch(action.type) {
+        // This fires when text is changed on form entry.
         case POST_TO_SAVE_UPDATED:
-            //let id = state.id ? state.id : 
-
             return {
                 ...state,
                 [action.field]: action.value
+            }
+
+        // Called on postToSaveEdited(post).
+
+        // There isn't an owner on the payload! 
+        case POST_TO_SAVE_EDITED:
+
+            console.log('post to save edited')
+            console.log(action.payload)
+            return {
+                ...state,
+                title: action.payload.title,
+                body: action.payload.body,
+                author: action.payload.author,
+                id: action.payload.id,
+                category: action.payload.category
+
+
             }
     }
     

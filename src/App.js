@@ -19,7 +19,6 @@ class App extends Component {
   render() {
     let categories
     if(this.props.categories && this.props.categories.length > 0) {
-      console.log(this.props.categories)
       categories = this.props.categories
     } else {
       return(

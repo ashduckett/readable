@@ -31,3 +31,7 @@ body {
   position: absolute;
 }
 */
+
+.post-title {
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+}

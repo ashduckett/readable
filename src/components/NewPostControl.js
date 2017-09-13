@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { Button, Modal, FormControl, ControlLabel, FormGroup } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { addPost } from '../actions/index'
 import { bindActionCreators } from 'redux'
-import { updatePostToSave } from '../actions/index'
+import { updatePostToSave, editPostToSave, editPost, addPost } from '../actions/index'
 
 class NewPostControl extends Component {
 
   constructor(props) {
+
     super(props)
 
         this.state = {
@@ -50,6 +50,13 @@ class NewPostControl extends Component {
     this.close()
   }
 
+  handleEdit() {
+
+    this.props.editPost(this.props.latestPost, this.props.postToSave.title, this.props.postToSave.body)
+    this.close()
+
+  }
+
   getValidationState() {
     const length = this.state.value.length;
     if (length > 10) return 'success';
@@ -63,9 +70,25 @@ class NewPostControl extends Component {
 
   open() {
     this.setState({ showModal: true });
+    // LatestPost is controlled by reducer_post
+
+    // I think you want to pass in the latestpost here
+    if(this.props.editing) {
+      //
+      this.props.editPostToSave(this.props.latestPost)
+    } else {
+      this.props.editPostToSave({
+    category: 'None',
+    title: '',
+    owner: '',
+    body: '',
+    id: '',
+})
+    }
   }
 
   render() {
+
     let categories
     
     if(this.props.categories && this.props.categories.length > 0) {
@@ -79,11 +102,11 @@ class NewPostControl extends Component {
         <div></div>
       )
     }
-
+    
     return (
-      
       <div>
-        <Button bsStyle="primary" bsSize="large" onClick={this.open}>New Post</Button>
+        <a className="action-link" onClick={this.open}>{this.props.editing ? 'Edit Post' : 'New Post'}</a>
+     
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
             <Modal.Title>Enter Post Details</Modal.Title>
@@ -92,7 +115,7 @@ class NewPostControl extends Component {
             <form>
               <FormGroup controlId="formBasicText" validationState={this.getValidationState()}>
                 <ControlLabel>Author</ControlLabel>
-                <FormControl type="text" value={this.props.postToSave.owner} placeholder="Author" onChange={this.handleAuthorChange} />
+                <FormControl type="text" value={this.props.postToSave.author} placeholder="Author" onChange={this.handleAuthorChange} />
               </FormGroup>
              <FormGroup controlId="formControlsSelect">
                 <ControlLabel>Category</ControlLabel>
@@ -117,7 +140,7 @@ class NewPostControl extends Component {
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.close}>Close</Button>
-            <Button onClick={this.handleSave}>Save</Button>
+            <Button onClick={() => (this.props.editing ? this.handleEdit() : this.handleSave())}>Save</Button>
           </Modal.Footer>
         </Modal>
       </div>
@@ -128,12 +151,13 @@ class NewPostControl extends Component {
 function mapStateToProps(state) {
   return {
     categories: state.categories,
-    postToSave: state.postToSave
+    postToSave: state.postToSave,
+    latestPost: state.latestPost
   }
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ addPost, updatePostToSave }, dispatch)
+    return bindActionCreators({ addPost, updatePostToSave, editPostToSave, editPost }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewPostControl)

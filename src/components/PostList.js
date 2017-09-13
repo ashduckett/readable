@@ -2,19 +2,27 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { fetchPosts, fetchPost } from '../actions/index'
-//import { fetchPost } from '../actions/index'
-import { addPost } from '../actions/index'
+import { fetchComments } from '../actions/index'
+import { addPost, changeSortOrder } from '../actions/index'
 import NewPostControl from './NewPostControl'
-
-
+import arraySort from 'array-sort'
 
 class PostList extends Component {
+    constructor(props) {
+        super(props)
+        this.onSelectPost = this.onSelectPost.bind(this)
+    }
+
     componentDidMount() {
         this.props.fetchPosts()
     }
     
-    onNewPost() {
-        
+    onSelectPost(post) {
+        // What does this do? It should update
+        this.props.fetchPost(post)
+
+        // And this?
+        this.props.fetchComments(post.id)
     }
 
     render() {
@@ -25,15 +33,43 @@ class PostList extends Component {
             )
         }
 
+        // Why take a copy? Without a copy we rip apart the state forming the list when we filter.
+        // You'd have to run off and grab a fresh copy with a new api call each time.
+        // Or store separate lists...there are other ways of doing this...
+
+        // Take a copy of the current list:
+        let posts = this.props.posts
+    
+        // First sort
+        switch(this.props.sortByValue) {
+            case 'Vote Score':
+                arraySort(posts, 'voteScore')
+                break
+            case 'Most Recent':
+                arraySort(posts, 'timestamp')
+                break
+            case 'Least Recent':
+                arraySort(posts, 'timestamp', {reverse: true})
+                break
+        }
+
+        // Now filter
+        if(this.props.catFilter !== 'None') {
+            posts = posts.filter((post) => {
+                return post.category === this.props.catFilter
+            })
+        }
+
         return(
             <div>
                 <h4>Posts</h4>
-                <NewPostControl onClick={this.props} categories={this.props.categories }/>
+                <NewPostControl categories={this.props.categories} editing={false} />
+               
                 <ul className="post-list">
 
-                    {this.props.posts.map((post) => {
+                    {posts.map((post) => {
                         return(
-                            <li onClick={() => this.props.fetchPost(post)} key={post.id}>{post.title}</li>
+                            <li onClick={() => this.onSelectPost(post)} key={post.id}>{post.title}</li>
                         )
                     })}
                 </ul>
@@ -44,29 +80,14 @@ class PostList extends Component {
 
 function mapStateToProps(state) {
     return {
-        posts: state.posts
-
+        posts: state.posts,
+        comments: state.currentComments,
+        sortByValue: state.sortByValue,
+        catFilter: state.catFilter
     }
 }
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ fetchPosts, fetchPost, addPost }, dispatch)
+    return bindActionCreators({ fetchPosts, fetchPost, addPost, fetchComments, changeSortOrder }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostList)
-
-
-// Initially, display all of the post titles down the side, filterable
-// by category at the top.
-
-// These should be links that give you more detail in the detail view
-// to the center.
-
-// Dispose of black top with bleach.
-
-// Clicking on a post title should fire a SELECT_POST action.
-// This should change the state of the selected post which will be displayed
-// in the detail view.
-
-// Get that working as a first step.
-
-
