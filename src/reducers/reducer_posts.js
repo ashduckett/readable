@@ -1,10 +1,11 @@
-import { FETCH_POSTS, ADD_POST, DELETE_POST, UPDATE_POST } from '../actions/index'
+import { FETCH_POSTS, ADD_POST, DELETE_POST, UPDATE_POST, UPVOTE_POST, DOWNVOTE_POST } from '../actions/index'
 
 // We will want to read this data instead of a static object
 // but this reducer should be the full list of posts
 export default function(state = [], action) {
     switch(action.type) {
         case FETCH_POSTS:
+            console.log('fetch posts called')
             let onlynondeleted = action.payload.data.filter((post) => post.deleted === false )
             return onlynondeleted
         case ADD_POST:
@@ -25,6 +26,21 @@ export default function(state = [], action) {
             })
 
             return something
+    
+        case UPVOTE_POST:
+            return state.map((post) => {
+                if(post.id === action.payload) {
+                    post.voteScore += 1;
+                }
+                return post
+            })
+        case DOWNVOTE_POST:
+            return state.map((post) => {
+                if(post.id === action.payload) {
+                    post.voteScore -= 1;
+                }
+                return post
+            })
     }
     
     return state

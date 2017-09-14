@@ -6,15 +6,7 @@ import { connect } from 'react-redux'
 // Functional or Class based?
 class SortByDropdown extends Component {
     handleChange(e) {
-        console.log(e.target.value)
-
         this.props.changeSortOrder(e.target.value)
-
-        // Least recent
-        // Most recent
-        // vote score
-
-        // We will want access to the value of reducer_sort_by_value.
     }
     
     render() {
@@ -30,8 +22,6 @@ class SortByDropdown extends Component {
         )
     }
 }
-
-//export default SortByDropdown
 
 function mapStateToProps(state) {
     return {

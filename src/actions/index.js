@@ -16,9 +16,8 @@ export const UPVOTE_POST = 'UPVOTE_POST'
 export const DOWNVOTE_POST = 'DOWNVOTE_POST'
 export const CHANGE_SORT_ORDER = 'CHANGE_SORT_ORDER'
 export const CHANGE_CATEGORY_FILTER = 'CHANGE_CATEGORY_FILTER'
-
-// This one should be exclusively for updating fields on the form. A dynamic version.
 export const COMMENT_TO_SAVE_UPDATED = 'COMMENT_TO_SAVE_UPDATED'
+export const FETCH_POST_BY_ID = 'FETCH_POST_BY_ID'
 
 export function fetchPosts() {
     const axiosInstance = axios.create({
@@ -36,12 +35,27 @@ export function fetchPosts() {
 }
 
 export function fetchPost(post) {
-
-    console.log('fetchPost called.');
-    console.log(post);
     return {
         type: FETCH_LATEST_POST,
         payload: post
+    }
+}
+
+export function fetchPostById(id) {
+ 
+    // GET /posts/:id	
+
+    const axiosInstance = axios.create({
+        baseURL: 'http://localhost:5001/',
+        timeout: 1000,
+        headers: { 'Authorization': 'whatever-you-want' }
+    })
+    // e7d665f0-989b-11e7-b4c0-1f675453603d
+    const request = axiosInstance.get('/posts/' + id);
+ 
+    return {
+        type: FETCH_POST_BY_ID,
+        payload: request
     }
 }
 
@@ -196,8 +210,6 @@ export function commentToSaveEdited(fieldName, value, parentId) {
 }
 
 export function postToSaveEdited(fieldName, fieldValue) {
-    console.log('action creator called with fieldName of ' + fieldName)
-    console.log('action creator called with field value of ' + fieldValue)
     return {
         type: POST_TO_SAVE_UPDATED,
         fieldName,

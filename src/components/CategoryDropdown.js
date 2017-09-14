@@ -13,7 +13,7 @@ class CategoryDropdown extends Component {
         return(
             <div className="form-group">
                 <label htmlFor="exampleSelect1">Category</label>
-                <select className="form-control" onChange={(e) => {this.handleChange(e)}}>
+                <select value={this.props.catFilter ? this.props.catFilter : 'None'} className="form-control" onChange={(e) => {this.handleChange(e)}}>
                     <option>None</option>
                     {this.props.categories.map((category) => {
                         return(

@@ -1,16 +1,26 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { deletePost, fetchComments, fetchPost, upVotePost, downVotePost } from '../actions/index'
+import { deletePost, fetchComments, fetchPost, upVotePost, downVotePost, fetchPostById } from '../actions/index'
 import EditPostControl from './EditPostControl'
 import NewCommentControl from './NewCommentControl'
 import Comment from './Comment'
 
 
 class PostDetail extends Component {
+    
+
     constructor(props) {
         super(props)
         this.handleDelete = this.handleDelete.bind(this)
+        this.postBasedOnUrl = null
+    }
+
+    componentDidMount() {
+        if(this.props.match.params.id) {
+            // In theory this should render again, and update the latest post rendered...I hope
+            this.props.fetchPostById(this.props.match.params.id)
+        }
     }
     
     handleDelete() {
@@ -48,15 +58,15 @@ class PostDetail extends Component {
     }
 
     render() {
+        
+
+      
         if(!this.props.latestPost) {
             return(
                 <div>Select a post</div>
             )
         }
-
-        // log out the comments here
-        console.log('HERE')
-        console.log(this.props.latestPost)
+    
         return(
             <div className="post-detail">
                 <div className="content">
@@ -92,7 +102,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ fetchPost, deletePost, fetchComments, upVotePost, downVotePost }, dispatch)
+    return bindActionCreators({ fetchPost, deletePost, fetchComments, upVotePost, downVotePost, fetchPostById }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetail)
