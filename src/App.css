@@ -28,12 +28,10 @@
 }
 
 .post-detail {
-  background-color: blue;
   display: flex;
 }
 
 .post-detail .content {
-  background-color: yellow;
   width: 50%;
   margin: 0;
   padding: 0;
@@ -41,7 +39,6 @@
 }
 
 .button-col {
-  background-color: pink;
   width: 50%;
   margin: 0;
   padding: 0;

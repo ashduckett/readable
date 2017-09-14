@@ -43,8 +43,6 @@ export function fetchPost(post) {
 
 export function fetchPostById(id) {
  
-    // GET /posts/:id	
-
     const axiosInstance = axios.create({
         baseURL: 'http://localhost:5001/',
         timeout: 1000,
@@ -309,7 +307,6 @@ export function downVotePost(id) {
 }
 
 export function changeSortOrder(sortOrder) {
-    console.log('changeSortOrder action called')
     return {
         type: CHANGE_SORT_ORDER,
         payload: sortOrder
@@ -317,7 +314,6 @@ export function changeSortOrder(sortOrder) {
 }
 
 export function changeCategoryFilter(categoryFilter) {
-    console.log('cat filter action called')
     return {
         type: CHANGE_CATEGORY_FILTER,
         payload: categoryFilter

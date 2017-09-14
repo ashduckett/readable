@@ -5,7 +5,6 @@ import { FETCH_POSTS, ADD_POST, DELETE_POST, UPDATE_POST, UPVOTE_POST, DOWNVOTE_
 export default function(state = [], action) {
     switch(action.type) {
         case FETCH_POSTS:
-            console.log('fetch posts called')
             let onlynondeleted = action.payload.data.filter((post) => post.deleted === false )
             return onlynondeleted
         case ADD_POST:
@@ -24,7 +23,6 @@ export default function(state = [], action) {
                     return post
                 }
             })
-
             return something
     
         case UPVOTE_POST:
@@ -41,8 +39,10 @@ export default function(state = [], action) {
                 }
                 return post
             })
+        default:
+            return state        
     }
     
-    return state
+    
 }
 

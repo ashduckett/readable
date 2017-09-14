@@ -4,18 +4,6 @@ body {
   font-family: sans-serif;
 }
 
-.app {
-  background-color: red;
-}
-
-.col-9 {
-  background-color: green;
-}
-
-.col-3 {
-  background-color: red;
-}
-
 .post-list {
   list-style: none;
   padding-left: 0;

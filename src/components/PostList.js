@@ -43,18 +43,18 @@ class PostList extends Component {
         // Take a copy of the current list:
         let posts = this.props.posts
 
-        console.log(this.props.sortByValue)
         // First sort
         switch(this.props.sortByValue) {
-            case 'Vote Score':
-                arraySort(posts, 'voteScore')
-                break
             case 'Most Recent':
                 arraySort(posts, 'timestamp', {reverse: true})
                 break
             case 'Least Recent':
                 arraySort(posts, 'timestamp')
                 break
+            case 'Vote Score':
+            default:
+                arraySort(posts, 'voteScore')
+
         }
 
         // Now filter
