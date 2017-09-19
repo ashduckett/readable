@@ -23,8 +23,6 @@ export default function(state = dummyReturn, action) {
         // There isn't an owner on the payload! 
         case POST_TO_SAVE_EDITED:
 
-            console.log('post to save edited')
-            console.log(action.payload)
             return {
                 ...state,
                 title: action.payload.title,

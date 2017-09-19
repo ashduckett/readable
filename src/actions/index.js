@@ -254,7 +254,6 @@ export function editCommentCommitted(comment) {
 }
 
 export function upVotePost(id) {
-    console.log('upvote called')
 
     const axiosInstance = axios.create({
         baseURL: 'http://localhost:5001/',

@@ -32,9 +32,6 @@ class NewPostControl extends Component {
     } else {
       this.props.addPost(this.props.postToSave)
 
-      console.log('here is the post we are saving')
-      console.log(this.props.postToSave)
-
       // When creating a new post we want to show its detail
       this.props.fetchPost(this.props.postToSave)
     }
