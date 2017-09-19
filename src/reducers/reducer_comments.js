@@ -1,6 +1,4 @@
-import { FETCH_COMMENTS } from '../actions/index'
-import { ADD_COMMENT } from '../actions/index'
-import { COMMIT_COMMENT_EDIT } from '../actions/index'
+import { FETCH_COMMENTS, ADD_COMMENT, COMMIT_COMMENT_EDIT } from '../actions/types'
 
 export default function(state = [], action) {
     switch(action.type) {

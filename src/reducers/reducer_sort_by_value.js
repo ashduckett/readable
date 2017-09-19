@@ -1,4 +1,4 @@
-import { CHANGE_SORT_ORDER } from '../actions/index'
+import { CHANGE_SORT_ORDER } from '../actions/types'
 
 // Sort by Vote Score by default
 export default function(state = 'Vote Score', action) {

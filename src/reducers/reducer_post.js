@@ -1,4 +1,4 @@
-import { FETCH_LATEST_POST, UPDATE_POST, UPVOTE_POST, DOWNVOTE_POST, FETCH_POST_BY_ID } from '../actions/index'
+import { FETCH_LATEST_POST, UPDATE_POST, UPVOTE_POST, DOWNVOTE_POST, FETCH_POST_BY_ID } from '../actions/types'
 
 // This one needs to deal with UPDATE_POST
 export default function(state = null, action) {

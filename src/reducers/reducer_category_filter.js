@@ -1,4 +1,4 @@
-import { CHANGE_CATEGORY_FILTER } from '../actions/index'
+import { CHANGE_CATEGORY_FILTER } from '../actions/types'
 
 // Sort by Vote Score by default
 export default function(state = 'None', action) {

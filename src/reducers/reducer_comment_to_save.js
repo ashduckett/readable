@@ -1,7 +1,6 @@
 // This represents a comment in construction via the form on the modal used to create or edit a comment
 
-import { COMMENT_TO_SAVE_UPDATED } from '../actions/index'
-import { EDIT_COMMENT_INSTIGATED } from '../actions/index'
+import { COMMENT_TO_SAVE_UPDATED, EDIT_COMMENT_INSTIGATED } from '../actions/types'
 
 
 /*

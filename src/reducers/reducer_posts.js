@@ -1,4 +1,4 @@
-import { FETCH_POSTS, ADD_POST, DELETE_POST, UPDATE_POST, UPVOTE_POST, DOWNVOTE_POST } from '../actions/index'
+import { FETCH_POSTS, ADD_POST, DELETE_POST, UPDATE_POST, UPVOTE_POST, DOWNVOTE_POST } from '../actions/types'
 
 // We will want to read this data instead of a static object
 // but this reducer should be the full list of posts

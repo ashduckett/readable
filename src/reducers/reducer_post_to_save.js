@@ -1,5 +1,4 @@
-import { POST_TO_SAVE_UPDATED } from '../actions/index'
-import { POST_TO_SAVE_EDITED } from '../actions/index'
+import { POST_TO_SAVE_UPDATED, POST_TO_SAVE_EDITED } from '../actions/types'
 
 // Default return
 const dummyReturn = {
