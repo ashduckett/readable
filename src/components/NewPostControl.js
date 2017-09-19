@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { Button, Modal, FormControl, ControlLabel, FormGroup } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { updatePostToSave, editPostToSave, editPost, addPost, postToSaveEdited } from '../actions/index'
+import { updatePostToSave, editPostToSave, editPost, addPost, postToSaveEdited, fetchPost } from '../actions/index'
 
 class NewPostControl extends Component {
 
@@ -31,7 +31,18 @@ class NewPostControl extends Component {
       this.props.editPost(this.props.latestPost, this.props.postToSave.title, this.props.postToSave.body)  
     } else {
       this.props.addPost(this.props.postToSave)
+
+      console.log('here is the post we are saving')
+      console.log(this.props.postToSave)
+
+      // When creating a new post we want to show its detail
+      this.props.fetchPost(this.props.postToSave)
     }
+
+    // Here we want to call something to change the latest
+    // post. How does it work when you select a post?
+
+
     this.close()
   }
 
@@ -141,7 +152,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ addPost, updatePostToSave, editPostToSave, editPost, postToSaveEdited }, dispatch)
+    return bindActionCreators({ addPost, updatePostToSave, editPostToSave, editPost, postToSaveEdited, fetchPost }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewPostControl)

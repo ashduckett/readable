@@ -5,7 +5,7 @@ import { deletePost, fetchComments, fetchPost, upVotePost, downVotePost, fetchPo
 import EditPostControl from './EditPostControl'
 import NewCommentControl from './NewCommentControl'
 import Comment from './Comment'
-
+import { Button, Modal, FormControl, ControlLabel, FormGroup } from 'react-bootstrap'
 
 class PostDetail extends Component {
     
@@ -74,10 +74,9 @@ class PostDetail extends Component {
                     <p><em>By {this.props.latestPost.author}</em></p>
                     <p>{this.props.latestPost.body}</p>
                     <p>Vote Score: {this.props.latestPost.voteScore}</p>
-                    
+                    <Button bsStyle="primary" bsSize="small" onClick={() => this.handleUpVote(this.props.latestPost.id)}>Up Vote</Button>
+                    <Button bsStyle="primary" bsSize="small" onClick={() => this.handleDownVote(this.props.latestPost.id)}>Down Vote</Button>
 
-                    <a onClick={() => this.handleUpVote(this.props.latestPost.id)}>Up Vote</a>
-                    <a onClick={() => this.handleDownVote(this.props.latestPost.id)}>Down Vote</a>
                     {
                         this.renderComments()
                     }

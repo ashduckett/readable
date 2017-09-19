@@ -76,7 +76,7 @@ class PostList extends Component {
 
                     {posts.map((post) => {
                         return(
-                            <li onClick={() => this.onSelectPost(post)} key={post.id}>{post.title}</li>
+                            <li className="post-item" onClick={() => this.onSelectPost(post)} key={post.id}>{post.title}</li>
                         )
                     })}
                 </ul>

@@ -28,6 +28,7 @@ export default function(state = [], action) {
         case UPVOTE_POST:
             return state.map((post) => {
                 if(post.id === action.payload) {
+                    post.voteScore = (post.voteScore ? post.voteScore : 0);
                     post.voteScore += 1;
                 }
                 return post
@@ -35,6 +36,7 @@ export default function(state = [], action) {
         case DOWNVOTE_POST:
             return state.map((post) => {
                 if(post.id === action.payload) {
+                    post.voteScore = (post.voteScore ? post.voteScore : 0);
                     post.voteScore -= 1;
                 }
                 return post
