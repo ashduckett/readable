@@ -32,10 +32,13 @@
 }
 
 .post-detail .content {
-  width: 50%;
+  width: 100%;
   margin: 0;
   padding: 0;
+}
 
+.comment-controls {
+  margin-left: auto;
 }
 
 .button-col {
@@ -56,4 +59,61 @@
 
 .post-item:hover {
   background-color: rgb(243, 243, 243);
+}
+
+.post-container:hover {
+  background-color: rgb(243, 243, 243);
+}
+
+.comment {
+  display: flex;
+  width: 100%;
+}
+
+.comment-container:hover {
+  background-color: rgb(243, 243, 243);
+}
+
+.post:hover {
+  background-color: rgb(243, 243, 243);
+}
+
+.post {
+  display: flex;
+}
+
+.post-controls {
+  margin-left: auto;
+}
+.container {
+  display: inline-block;
+}
+
+.dropdown {
+  float: right;
+}
+
+.voter {
+  font-size: 22px;
+  color: black;
+  text-decoration: none;
+}
+
+.voter:visited {
+  color: black;
+}
+
+.voter:hover {
+  color: black;
+}
+
+.score {
+  display: inline-block;
+  margin: 8px;
+  width: 10px;
+  
+}
+
+.voteComponent {
+  text-align: right;
 }

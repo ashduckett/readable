@@ -20,7 +20,6 @@ class CategoryDropdown extends Component {
                             <option key={category.name}>{category.name}</option>
                         )
                     })}            
-
                 </select>
             </div>
         )

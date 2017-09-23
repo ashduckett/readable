@@ -96,9 +96,7 @@ class NewPostControl extends Component {
     }
 
     return (
-      <div>
-        <a className="action-link" onClick={this.open}>{this.props.editing ? 'Edit Post' : 'New Post'}</a>
-     
+      <a role="meunitem" onClick={this.open} href='#'>{this.props.editing ? 'Edit' : 'New Post'}     
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
             <Modal.Title>Enter Post Details</Modal.Title>
@@ -135,7 +133,7 @@ class NewPostControl extends Component {
             <Button onClick={this.handleSave}>Save</Button>
           </Modal.Footer>
         </Modal>
-      </div>
+      </a>
     );
   }
 };
@@ -154,4 +152,4 @@ function mapDispatchToProps(dispatch) {
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewPostControl)
 
-ReactDOM.render(<NewPostControl />, document.getElementById('root'));
+//ReactDOM.render(<NewPostControl />, document.getElementById('root'));

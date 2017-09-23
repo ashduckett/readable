@@ -1,6 +1,5 @@
 import axios from 'axios'
-import { FETCH_POSTS, FETCH_LATEST_POST, FETCH_POST_BY_ID, FETCH_COMMENTS, FETCH_CATEGORIES, ADD_POST, DELETE_POST, UPDATE_POST, POST_TO_SAVE_UPDATED, POST_TO_SAVE_EDITED, COMMENT_TO_SAVE_UPDATED, ADD_COMMENT, EDIT_COMMENT_INSTIGATED, COMMIT_COMMENT_EDIT, UPVOTE_POST, DOWNVOTE_POST, CHANGE_SORT_ORDER, CHANGE_CATEGORY_FILTER } from './types'
-
+import { FETCH_POSTS, FETCH_LATEST_POST, FETCH_POST_BY_ID, FETCH_COMMENTS, FETCH_CATEGORIES, ADD_POST, DELETE_POST, UPDATE_POST, POST_TO_SAVE_UPDATED, POST_TO_SAVE_EDITED, COMMENT_TO_SAVE_UPDATED, ADD_COMMENT, EDIT_COMMENT_INSTIGATED, COMMIT_COMMENT_EDIT, UPVOTE_POST, DOWNVOTE_POST, CHANGE_SORT_ORDER, CHANGE_CATEGORY_FILTER, COMMENT_DELETED, UPVOTE_COMMENT, DOWNVOTE_COMMENT } from './types'
 
 export function fetchPosts() {
     const axiosInstance = axios.create({
@@ -304,3 +303,58 @@ export function changeCategoryFilter(categoryFilter) {
     }
 }
 
+// To delete a comment all we need it the comment's id
+export function deleteComment(commentId) {
+
+    const axiosInstance = axios.create({
+        baseURL: 'http://localhost:5001/',
+        timeout: 1000,
+        headers: { 'Authorization': 'whatever-you-want' }
+    })
+
+    const request = axiosInstance.delete('/comments/' + commentId)
+
+    return {
+        type: COMMENT_DELETED,
+        payload: commentId,
+        request
+    }
+}
+
+export function upVoteComment(commentId) {
+
+    const axiosInstance = axios.create({
+        baseURL: 'http://localhost:5001/',
+        timeout: 1000,
+        headers: { 'Authorization': 'whatever-you-want' }
+    })
+
+    const request = axiosInstance.post('/comments/' + commentId, {
+        option: 'upVote'
+    });
+
+    return {
+        type: UPVOTE_COMMENT,
+        payload: commentId,
+        request
+    }
+}
+
+export function downVoteComment(commentId) {
+    
+        const axiosInstance = axios.create({
+            baseURL: 'http://localhost:5001/',
+            timeout: 1000,
+            headers: { 'Authorization': 'whatever-you-want' }
+        })
+    
+        const request = axiosInstance.post('/comments/' + commentId, {
+            option: 'downVote'
+        });
+    
+        return {
+            type: DOWNVOTE_COMMENT,
+            payload: commentId,
+            request
+        }
+    }

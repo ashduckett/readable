@@ -4,15 +4,18 @@ import { bindActionCreators } from 'redux'
 import { deletePost, fetchComments, fetchPost, upVotePost, downVotePost, fetchPostById } from '../actions/index'
 import EditPostControl from './EditPostControl'
 import NewCommentControl from './NewCommentControl'
+import VoteControl from './VoteControl'
 import Comment from './Comment'
-import { Button, Modal, FormControl, ControlLabel, FormGroup } from 'react-bootstrap'
-
+import { Button, Modal, FormControl, ControlLabel, FormGroup, MenuItem, DropdownButton } from 'react-bootstrap'
+import '../font-awesome/css/font-awesome.min.css'
 class PostDetail extends Component {
     
 
     constructor(props) {
         super(props)
         this.handleDelete = this.handleDelete.bind(this)
+        this.handleUpVote = this.handleUpVote.bind(this)
+        this.handleDownVote = this.handleDownVote.bind(this)
         this.postBasedOnUrl = null
     }
 
@@ -23,7 +26,8 @@ class PostDetail extends Component {
         }
     }
     
-    handleDelete() {
+    handleDelete(e) {
+        e.preventDefault();
         this.props.deletePost(this.props.latestPost)
     }
 
@@ -39,7 +43,6 @@ class PostDetail extends Component {
         if(this.props.postComments) {
             let modifier = (this.props.postComments.length === 1) ? 'is' : 'are';
             let commentOrComments = (this.props.postComments.length === 1) ? 'comment' : 'comments';
-
 
             return (
                 <div>
@@ -66,29 +69,48 @@ class PostDetail extends Component {
                 <div>Select a post</div>
             )
         }
-    
         return(
-            <div className="post-detail">
-                <div className="content">
-                    <h3 className="post-title">{this.props.latestPost.title}</h3>
-                    <p><em>By {this.props.latestPost.author}</em></p>
-                    <p>{this.props.latestPost.body}</p>
-                    <p>Vote Score: {this.props.latestPost.voteScore}</p>
-                    <Button bsStyle="primary" bsSize="small" onClick={() => this.handleUpVote(this.props.latestPost.id)}>Up Vote</Button>
-                    <Button bsStyle="primary" bsSize="small" onClick={() => this.handleDownVote(this.props.latestPost.id)}>Down Vote</Button>
-
+            <div className="panel panel-default">
+                <div className="panel-heading">
+                    <div className="panel-title">{this.props.latestPost.title} by {this.props.latestPost.author}
+                        <div className="dropdown">
+                            <a className="dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">
+                                <span className="caret"></span>
+                            </a>
+                            <ul className="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                <li role="presentation"><EditPostControl postToEdit={this.props.latestPost} /></li>
+                                <li onClick={(e) => this.handleDelete(e)} role="presentation"><a role="menuitem" tabIndex="-1" href="#">Delete</a></li>
+                                <li role="presentation"> <NewCommentControl editing={false} /></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div className="panel-body">
+                    <div className="post-container">
+                        <div className="post">
+                            <p>{this.props.latestPost.body}</p>
+                            <div className="post-controls">
+                                <a className="post-control" href="#">Test</a>
+                                <a className="post-control" href="#">Test</a>
+                            </div>
+                        </div>
+                        <VoteControl upVote={this.handleUpVote} downVote={this.handleDownVote} score={this.props.latestPost.voteScore}  id={this.props.latestPost.id} />
+                    </div>
+                    
                     {
                         this.renderComments()
                     }
                 </div>
-            <div className="button-col">
+            {/* <div className="button-col">
                     <div className="buttons">
                         <a className="action-link" onClick={this.handleDelete}>Delete</a>
                         <EditPostControl postToEdit={this.props.latestPost}/>
                         <NewCommentControl editing={false} />
                     </div>
-                </div>
+                </div> */}
             </div>
+            
+
         )
     }
 }

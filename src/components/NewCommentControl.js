@@ -62,8 +62,8 @@ class NewCommentControl extends Component {
 
   render() {
     return (
-      <div>
-        <a className="action-link" onClick={this.open}>{this.props.editing ? 'Edit Comment' : 'New Comment'}</a>
+
+        <a className="action-link edit-comment" onClick={this.open}>{this.props.editing ? 'Edit Comment' : 'Comment'}
      
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
@@ -86,7 +86,7 @@ class NewCommentControl extends Component {
             <Button onClick={() => this.handleSave()}>Save</Button>
           </Modal.Footer>
         </Modal>
-      </div>
+      </a>
     );
   }
 };
@@ -107,7 +107,3 @@ function mapDispatchToProps(dispatch) {
 export default connect(mapStateToProps, mapDispatchToProps)(NewCommentControl)
 
 ReactDOM.render(<NewCommentControl />, document.getElementById('root'));
-
-/*
-  Can we get away with having one in-focus comment. The one we may be saving.
-*/

@@ -1,9 +1,9 @@
-import { FETCH_COMMENTS, ADD_COMMENT, COMMIT_COMMENT_EDIT } from '../actions/types'
+import { FETCH_COMMENTS, ADD_COMMENT, COMMIT_COMMENT_EDIT, COMMENT_DELETED, UPVOTE_COMMENT, DOWNVOTE_COMMENT } from '../actions/types'
 
 export default function(state = [], action) {
     switch(action.type) {
         case FETCH_COMMENTS:
-
+            console.log(action.payload.data)
             // We want to return all the comments
             return action.payload.data
             
@@ -18,6 +18,40 @@ export default function(state = [], action) {
                     return comment
                 }
             })
+        case COMMENT_DELETED:
+            if(action.payload !== undefined) {
+                return state.filter((comment) => {
+                    return comment.id !== action.payload;
+                })
+            } else {
+                return state
+            }
+        case UPVOTE_COMMENT:
+            return state.map((comment) => {
+                if(comment.id === action.payload) {
+                    return {
+                        ...comment,
+                        voteScore: ++comment.voteScore
+                    } 
+                } else {
+                    return comment
+                }
+                
+            })
+
+        case DOWNVOTE_COMMENT:
+            return state.map((comment) => {
+                if(comment.id === action.payload) {
+                    return {
+                        ...comment,
+                        voteScore: --comment.voteScore
+                    } 
+                } else {
+                    return comment
+                }
+                
+            })
+
 
     }
     return state
