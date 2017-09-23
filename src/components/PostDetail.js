@@ -89,10 +89,6 @@ class PostDetail extends Component {
                     <div className="post-container">
                         <div className="post">
                             <p>{this.props.latestPost.body}</p>
-                            <div className="post-controls">
-                                <a className="post-control" href="#">Test</a>
-                                <a className="post-control" href="#">Test</a>
-                            </div>
                         </div>
                         <VoteControl upVote={this.handleUpVote} downVote={this.handleDownVote} score={this.props.latestPost.voteScore}  id={this.props.latestPost.id} />
                     </div>
