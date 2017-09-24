@@ -23,3 +23,17 @@ body {
 .post-title {
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
+
+.edit-comment {
+  text-decoration: none;
+  color: black;
+}
+
+.edit-comment:hover {
+  text-decoration: none;
+  color: black;
+}
+
+.btn-group {
+  margin-left: auto;
+}

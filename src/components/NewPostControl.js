@@ -96,7 +96,7 @@ class NewPostControl extends Component {
     }
 
     return (
-      <a role="meunitem" onClick={this.open} href='#'>{this.props.editing ? 'Edit' : 'New Post'}     
+      <button type="button" className="btn btn-default" onClick={this.open}>{this.props.editing ? <i className="fa fa-pencil-square-o" aria-hidden="true"></i> : 'New Post'}
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
             <Modal.Title>Enter Post Details</Modal.Title>
@@ -133,7 +133,7 @@ class NewPostControl extends Component {
             <Button onClick={this.handleSave}>Save</Button>
           </Modal.Footer>
         </Modal>
-      </a>
+      </button>
     );
   }
 };

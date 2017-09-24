@@ -62,10 +62,8 @@ class NewCommentControl extends Component {
 
   render() {
     return (
-
-        <a className="action-link edit-comment" onClick={this.open}>{this.props.editing ? 'Edit Comment' : 'Comment'}
-     
-        <Modal show={this.state.showModal} onHide={this.close}>
+      <button type="button" className="btn btn-default" onClick={this.open}>{this.props.editing ? <i className="fa fa-pencil-square-o" aria-hidden="true"></i> : <i className="fa fa-comment-o" aria-hidden="true"></i>}
+       <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
             <Modal.Title>Enter Comment Details</Modal.Title>
           </Modal.Header>
@@ -86,7 +84,7 @@ class NewCommentControl extends Component {
             <Button onClick={() => this.handleSave()}>Save</Button>
           </Modal.Footer>
         </Modal>
-      </a>
+      </button>
     );
   }
 };

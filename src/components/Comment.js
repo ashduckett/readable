@@ -32,12 +32,12 @@ class Comment extends Component {
             <div className="comment-container">
                 <div className="comment">
                     <div>
-                        <em>Comment by {this.props.comment.author}</em>
-                        <p>{this.props.comment.body}</p>
+                        <div><em>Comment by {this.props.comment.author}</em></div>
+                        <p className="actual-comment">{this.props.comment.body}</p>
                     </div>
-                    <div className="comment-controls">
+                    <div className="btn-group" role="group" aria-label="...">
+                        <button type="button" className="btn btn-default" onClick={() => {this.handleDelete(this.props.comment.id)}}><i className="fa fa-trash-o" aria-hidden="true"></i></button>
                         <NewCommentControl editing={true} comment={this.props.comment ? this.props.comment : null} />
-                        <a onClick={() => {this.handleDelete(this.props.comment.id)}} href="#">Delete Comment</a>
                     </div>
                 </div>
                 <VoteControl upVote={this.handleUpVote} downVote={this.handleDownVote} score={this.props.comment.voteScore} id={this.props.comment.id} />

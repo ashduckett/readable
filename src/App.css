@@ -68,6 +68,7 @@
 .comment {
   display: flex;
   width: 100%;
+  margin-bottom: 40px;
 }
 
 .comment-container:hover {
@@ -81,6 +82,8 @@
 .post {
   display: flex;
 }
+
+
 
 .post-controls {
   margin-left: auto;
@@ -116,4 +119,12 @@
 
 .voteComponent {
   text-align: right;
+}
+
+p {
+  margin: 0;
+}
+
+.btn-group {
+  
 }

@@ -31,5 +31,5 @@ function mapStateToProps(state) {
         postToSave: state.postToSave
     }
   }
-  export default connect(mapStateToProps, null)(EditPostControl)
+  export default connect(mapStateToProps, null, null, { withRef: true})(EditPostControl)
 
