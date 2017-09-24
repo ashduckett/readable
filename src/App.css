@@ -61,8 +61,20 @@
   background-color: rgb(243, 243, 243);
 }
 
+.btn-group {
+  visibility: hidden;
+}
+
 .post-container:hover {
   background-color: rgb(243, 243, 243);
+}
+
+.post-container:hover .btn-group {
+  visibility: visible;
+}
+
+.post-container:hover .voteComponent {
+  visibility: visible;
 }
 
 .post-container, .comment-container {
@@ -79,9 +91,21 @@
   background-color: rgb(243, 243, 243);
 }
 
+.comment-container:hover .btn-group {
+  visibility: visible;
+}
+
+.comment-container:hover .voteComponent {
+  visibility: visible;
+}
+
+
+
 .post:hover {
   background-color: rgb(243, 243, 243);
 }
+
+
 
 .post {
   display: flex;
@@ -124,6 +148,7 @@
 .voteComponent {
   text-align: right;
   margin-top: 20px;
+  visibility: hidden;
 }
 
 p {
