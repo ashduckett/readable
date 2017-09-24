@@ -65,6 +65,10 @@
   background-color: rgb(243, 243, 243);
 }
 
+.post-container, .comment-container {
+  padding: 10px;
+}
+
 .comment {
   display: flex;
   width: 100%;
@@ -119,6 +123,7 @@
 
 .voteComponent {
   text-align: right;
+  margin-top: 20px;
 }
 
 p {
@@ -126,5 +131,5 @@ p {
 }
 
 .btn-group {
-  
+
 }
