@@ -28,7 +28,7 @@ class PostList extends Component {
     }
 
     render() {
-
+        console.log(this.props.match.params)
 
         if(!this.props.posts || this.props.posts.length === 0) {
             return(
@@ -58,9 +58,9 @@ class PostList extends Component {
         }
 
         // Now filter
-        if(this.props.catFilter !== 'None') {
+        if(this.props.match.params.category !== 'None') {
             posts = posts.filter((post) => {
-                return post.category === this.props.catFilter
+                return post.category === this.props.match.params.category
             })
         }
 
@@ -71,9 +71,7 @@ class PostList extends Component {
                 <SortByDropdown />
                 <h4>Posts</h4>
                 <NewPostControl categories={this.props.categories} editing={false} />
-               
                 <ul className="post-list">
-
                     {posts.map((post) => {
                         return(
                             <li className="post-item" onClick={() => this.onSelectPost(post)} key={post.id}>{post.title}</li>

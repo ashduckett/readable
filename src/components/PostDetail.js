@@ -69,7 +69,7 @@ class PostDetail extends Component {
                 <div>Select a post</div>
             )
         }
-        //console.log(this.refs.item)
+
         return(
             <div className="panel panel-default">
                 <div className="panel-heading">

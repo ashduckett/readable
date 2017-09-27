@@ -18,11 +18,6 @@
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
 .action-link {
   cursor: pointer;
 }
@@ -110,7 +105,9 @@
 .post {
   display: flex;
 }
-
+.dropdown-toggle {
+  width: 100%;
+}
 
 
 .post-controls {
@@ -118,10 +115,6 @@
 }
 .container {
   display: inline-block;
-}
-
-.dropdown {
-  float: right;
 }
 
 .voter {
@@ -153,8 +146,4 @@
 
 p {
   margin: 0;
-}
-
-.btn-group {
-
 }
