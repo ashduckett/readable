@@ -9,13 +9,6 @@ class EditPostControl extends Component {
        // this.open = this.open.bind(this)
     }
 
-
-    open() {
-        console.log('open')
-       // this.refs.newPostControl.open();
-    }
-
-
     render() {
         return(
             <NewPostControl postToEdit={this.props.postToSave} editing={true}  />

@@ -28,7 +28,6 @@ class PostList extends Component {
     }
 
     render() {
-        console.log(this.props.match.params)
 
         if(!this.props.posts || this.props.posts.length === 0) {
             return(
@@ -58,7 +57,7 @@ class PostList extends Component {
         }
 
         // Now filter
-        if(this.props.match.params.category !== 'None') {
+        if(this.props.match.params.category !== 'None' && this.props.match.params.category !== undefined) {
             posts = posts.filter((post) => {
                 return post.category === this.props.match.params.category
             })
