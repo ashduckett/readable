@@ -1,5 +1,7 @@
 import axios from 'axios'
-import { FETCH_POSTS, FETCH_LATEST_POST, FETCH_POST_BY_ID, FETCH_COMMENTS, FETCH_CATEGORIES, ADD_POST, DELETE_POST, UPDATE_POST, POST_TO_SAVE_UPDATED, POST_TO_SAVE_EDITED, COMMENT_TO_SAVE_UPDATED, ADD_COMMENT, EDIT_COMMENT_INSTIGATED, COMMIT_COMMENT_EDIT, UPVOTE_POST, DOWNVOTE_POST, CHANGE_SORT_ORDER, CHANGE_CATEGORY_FILTER, COMMENT_DELETED, UPVOTE_COMMENT, DOWNVOTE_COMMENT } from './types'
+
+
+import { FETCH_POSTS, FETCH_LATEST_POST, FETCH_POST_BY_ID, PUSH_COMMENTS, FETCH_COMMENTS, FETCH_CATEGORIES, ADD_POST, DELETE_POST, UPDATE_POST, POST_TO_SAVE_UPDATED, POST_TO_SAVE_EDITED, COMMENT_TO_SAVE_UPDATED, ADD_COMMENT, EDIT_COMMENT_INSTIGATED, COMMIT_COMMENT_EDIT, UPVOTE_POST, DOWNVOTE_POST, CHANGE_SORT_ORDER, CHANGE_CATEGORY_FILTER, COMMENT_DELETED, UPVOTE_COMMENT, DOWNVOTE_COMMENT } from './types'
 
 export function fetchPosts() {
     const axiosInstance = axios.create({
@@ -8,15 +10,48 @@ export function fetchPosts() {
         headers: { 'Authorization': 'whatever-you-want' }
     })
 
-    const request = axiosInstance.get('/posts');
+    const request = axiosInstance.get('/posts');// .then(function(data) {
+    //    console.log(data)
+    //})
     
-    return {
+/*    return {
         type: FETCH_POSTS,
         payload: request
+    }*/
+
+    let commentCounts = []
+    let postsToSend = []
+
+    return (dispatch) => {
+        request.then((data) => {
+            let posts = data.data
+          
+            for(let post of posts) {
+                postsToSend.push(post)    
+                let getCommentsRequest = axiosInstance.get('/posts/' + post.id + '/comments');
+
+                getCommentsRequest.then((data) => {
+                    if((!data.data.deleted)) {
+                        commentCounts[post.id] = data.data.length
+                    }
+                    dispatch({
+                        type: FETCH_POSTS,
+                        payload: postsToSend,
+                        commentCounts                
+                        
+                    })
+                })
+            }
+        })
     }
 }
 
+export function test() {
+
+}
+
 export function fetchPost(post) {
+    
     return {
         type: FETCH_LATEST_POST,
         payload: post
@@ -30,7 +65,7 @@ export function fetchPostById(id) {
         timeout: 1000,
         headers: { 'Authorization': 'whatever-you-want' }
     })
-    // e7d665f0-989b-11e7-b4c0-1f675453603d
+
     const request = axiosInstance.get('/posts/' + id);
  
     return {
@@ -50,6 +85,23 @@ export function fetchComments(postId) {
 
     return {
         type: FETCH_COMMENTS,
+        payload: request
+    }
+}
+
+// This action creator will take the comments for a particular
+// post and stash them in a global redux place
+export function pushCommentsForPost(postId) {
+    const axiosInstance = axios.create({
+        baseURL: 'http://localhost:5001/',
+        timeout: 1000,
+        headers: { 'Authorization': 'whatever-you-want' }
+    })
+
+    const request = axiosInstance.get('/posts/' + postId + '/comments');
+
+    return {
+        type: PUSH_COMMENTS,
         payload: request
     }
 }
@@ -226,6 +278,8 @@ export function addComment(comment) {
         request
     }
 }
+
+
 
 export function editCommentInstigated(comment) {
     return {

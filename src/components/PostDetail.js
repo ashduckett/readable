@@ -8,6 +8,7 @@ import VoteControl from './VoteControl'
 import Comment from './Comment'
 import { Button, Modal, FormControl, ControlLabel, FormGroup, MenuItem, DropdownButton } from 'react-bootstrap'
 import '../font-awesome/css/font-awesome.min.css'
+import { Link } from 'react-router-dom'
 
 class PostDetail extends Component {
 
@@ -20,14 +21,13 @@ class PostDetail extends Component {
     }
 
     componentDidMount() {
-        if(this.props.match.params.id) {
-            // In theory this should render again, and update the latest post rendered...I hope
-            this.props.fetchPostById(this.props.match.params.id)
+         if(this.props.postId) {
+            this.props.fetchPostById(this.props.postId)
+            this.props.fetchComments(this.props.postId)
         }
     }
     
     handleDelete(e) {
-        e.preventDefault();
         this.props.deletePost(this.props.latestPost)
     }
 
@@ -62,29 +62,22 @@ class PostDetail extends Component {
 
     render() {
         
-
-      
-        if(!this.props.latestPost) {
-            return(
-                <div>Select a post</div>
-            )
-        }
-
+        if(this.props.latestPost) {
         return(
+        
+        
             <div className="panel panel-default">
                 <div className="panel-heading">
                     <div className="panel-title">{this.props.latestPost.title} by {this.props.latestPost.author}</div>
                 </div>
                 <div className="panel-body">
-
-                
                     <div className="post-container">
                         <div className="post">
                             
                             <p>{this.props.latestPost.body}</p>
                             <div className="btn-group" role="group" aria-label="...">
                                 <EditPostControl postToEdit={this.props.latestPost} />
-                                <button type="button" className="btn btn-default" onClick={(e) => this.handleDelete(e)}><i className="fa fa-trash-o" aria-hidden="true"></i></button>
+                                <Link onClick={(e) => this.handleDelete(e)} to={'/None'} type="button" className="btn btn-default"><i className="fa fa-trash-o" aria-hidden="true"></i></Link>
                                 <NewCommentControl editing={false} />
                             </div>
                         </div>
@@ -97,6 +90,11 @@ class PostDetail extends Component {
                 </div>
             </div>
         )
+    } else {
+        return(
+            <p>no!</p>
+        )
+    }
     }
 }
 

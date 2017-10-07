@@ -5,8 +5,17 @@ import { FETCH_POSTS, ADD_POST, DELETE_POST, UPDATE_POST, UPVOTE_POST, DOWNVOTE_
 export default function(state = [], action) {
     switch(action.type) {
         case FETCH_POSTS:
-            let onlynondeleted = action.payload.data.filter((post) => post.deleted === false )
-            return onlynondeleted
+            let onlynondeleted = action.payload.filter((post) => post.deleted === false )
+
+            return onlynondeleted.map((post) => {
+                return {
+                    ...post,
+                    voteScore: post.voteScore ? post.voteScore : 0,
+                    commentCount: action.commentCounts[post.id] ? action.commentCounts[post.id] : 0
+                }
+            })
+            
+
         case ADD_POST:
             return [...state, action.payload]
         case DELETE_POST:

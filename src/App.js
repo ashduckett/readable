@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PostList from './components/PostList'
-import PostDetail from './components/PostDetail'
 import { bindActionCreators } from 'redux'
 import { fetchCategories } from './actions'
 import { connect } from 'react-redux'
@@ -23,16 +22,11 @@ class App extends Component {
   render() {
     return (
       <Router>
-      <div className="app container">
-        <div className="row">
-          <div className="col-md-9">
-            <Route path='/:category?/:id?' component={PostDetail}  />
-          </div>
-          <div className="col-md-3">
-            <Route path='/:category?/:id?' component={PostList} />
+        <div className="app container">
+          <div className="row">
+              <Route path='/:category?/:id?' component={PostList} />
           </div>
         </div>
-      </div>
      </Router>
     );
   }

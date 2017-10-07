@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
 import { Button, Modal, FormControl, ControlLabel, FormGroup } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -28,17 +27,13 @@ class NewPostControl extends Component {
   // This one should just save your post
   handleSave() {
     if(this.props.editing) {
-      this.props.editPost(this.props.latestPost, this.props.postToSave.title, this.props.postToSave.body)  
+      this.props.editPost(this.props.postToEdit, this.props.postToSave.title, this.props.postToSave.body)  
     } else {
       this.props.addPost(this.props.postToSave)
 
       // When creating a new post we want to show its detail
       this.props.fetchPost(this.props.postToSave)
     }
-
-    // Here we want to call something to change the latest
-    // post. How does it work when you select a post?
-
 
     this.close()
   }
@@ -62,32 +57,32 @@ class NewPostControl extends Component {
 
   open() {
     this.setState({ showModal: true });
+
+    // When this runs we get an error.
+    // I think it's because when the edit button is clicked, latestPost is null,
+    // so it's unusable here.
+
+    // What you want to do is to set post to save.
+
     // LatestPost is controlled by reducer_post
 
     // I think you want to pass in the latestpost here
+    console.log('post is ', this.props.postToEdit)
+
     if(this.props.editing) {
-      //
-      this.props.editPostToSave(this.props.latestPost)
+      this.props.editPostToSave(this.props.postToEdit)
     } else {
       this.props.editPostToSave({
-    category: 'None',
-    title: '',
-    owner: '',
-    body: '',
-    id: '',
-})
+        category: 'None',
+        title: '',
+        owner: '',
+        body: '',
+        id: '',
+      })
     }
   }
 
   render() {
-
-    let categories
-    
-    if(this.props.categories && this.props.categories.length > 0) {
-      categories = this.props.categories
-    } else {
-      categories = []
-    }
 
     if(!this.props.postToSave) {
       return(
@@ -96,7 +91,7 @@ class NewPostControl extends Component {
     }
 
     return (
-      <button type="button" className="btn btn-default" onClick={this.open}>{this.props.editing ? <i className="fa fa-pencil-square-o" aria-hidden="true"></i> : 'New Post'}
+      <button type="button" title={this.props.editing ? "Edit" : "New post"} className={"btn new-post " + (this.props.editing ? "btn-default" : "btn-primary")} onClick={this.open}>{this.props.editing ? <i className="fa fa-pencil-square-o" aria-hidden="true"></i> : 'New Post'}
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
             <Modal.Title>Enter Post Details</Modal.Title>

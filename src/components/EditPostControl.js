@@ -6,17 +6,14 @@ import { connect } from 'react-redux'
 class EditPostControl extends Component {
     constructor(props) {
         super(props)
-       // this.open = this.open.bind(this)
     }
 
     render() {
         return(
-            <NewPostControl postToEdit={this.props.postToSave} editing={true}  />
+            <NewPostControl postToEdit={this.props.postToEdit} editing={true}  />
         )
     }
 }
-
-
 
 function mapStateToProps(state) {
     return {

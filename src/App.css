@@ -48,10 +48,6 @@
   display: flex;
 }
 
-.post-item {
-  cursor: pointer;
-}
-
 .post-item:hover {
   background-color: rgb(243, 243, 243);
 }
@@ -64,11 +60,15 @@
   background-color: rgb(243, 243, 243);
 }
 
-.post-container:hover .btn-group {
+.post-item:hover #view-post-detail-btn {
   visibility: visible;
 }
 
-.post-container:hover .voteComponent {
+.post-item:hover .btn-group {
+  visibility: visible;
+}
+
+.post-item:hover .voteComponent {
   visibility: visible;
 }
 
@@ -98,6 +98,14 @@
 
 .post:hover {
   background-color: rgb(243, 243, 243);
+}
+
+.post-container:hover .btn-group {
+  visibility: visible;
+}
+
+.post-container:hover .voteComponent {
+  visibility: visible;
 }
 
 
@@ -139,11 +147,38 @@
 }
 
 .voteComponent {
-  text-align: right;
-  margin-top: 20px;
   visibility: hidden;
+  margin-top: auto;
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
 
 p {
   margin: 0;
+}
+
+.container {
+  display: block;
+}
+
+.new-post-control .new-post {
+  width: 100%;
+}
+
+.post-item {
+  height: 200px;
+}
+
+.post-item-left {
+  display: flex;
+  flex-direction: column;
+  width: 65%;
+  height: 100%;
+}
+
+.post-item-right {
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+  height: 100%;
 }

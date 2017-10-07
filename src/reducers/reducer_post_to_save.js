@@ -19,8 +19,6 @@ export default function(state = dummyReturn, action) {
                 [action.fieldName]: action.fieldValue
             }
 
-
-        // There isn't an owner on the payload! 
         case POST_TO_SAVE_EDITED:
 
             return {
@@ -30,10 +28,8 @@ export default function(state = dummyReturn, action) {
                 author: action.payload.author,
                 id: action.payload.id,
                 category: action.payload.category
-
-
             }
+        default:
+            return state
     }
-    
-    return state
 }

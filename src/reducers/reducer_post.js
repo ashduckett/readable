@@ -2,12 +2,12 @@ import { FETCH_LATEST_POST, UPDATE_POST, UPVOTE_POST, DOWNVOTE_POST, FETCH_POST_
 
 // This one needs to deal with UPDATE_POST
 export default function(state = null, action) {
-     switch(action.type) {
+    switch(action.type) {
+        
         case FETCH_LATEST_POST:
-            // I think the votescore comes back as 1 by default so we should present that
             return {
                 ...action.payload,
-                voteScore: action.payload.voteScore ? action.payload.voteScore : 1
+                voteScore: action.payload.voteScore !== null ? action.payload.voteScore : 0
             }
         case UPDATE_POST:
             return {
@@ -16,12 +16,15 @@ export default function(state = null, action) {
                 body: action.payload.body,
             }
         case UPVOTE_POST:
+        console.log('upvoting')
             return {
                 ...state,
                 voteScore: state.voteScore + 1
             }
 
         case DOWNVOTE_POST:
+        console.log('downvoting')
+        console.log(state)
         return {
             ...state,
             voteScore: state.voteScore - 1
@@ -30,6 +33,7 @@ export default function(state = null, action) {
             return {
                 ...action.payload.data
             }
+        default:
+            return state
     }
-    return state
 }

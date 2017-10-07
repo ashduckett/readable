@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { addPost } from '../actions/index'
 import { bindActionCreators } from 'redux'
 import { updatePostToSave, editPostToSave, editPost, commentToSaveEdited, addComment, editCommentInstigated, editCommentCommitted } from '../actions/index'
-
+import axios from 'axios'
 class NewCommentControl extends Component {
 
   constructor(props) {
@@ -62,7 +62,7 @@ class NewCommentControl extends Component {
 
   render() {
     return (
-      <button type="button" className="btn btn-default" onClick={this.open}>{this.props.editing ? <i className="fa fa-pencil-square-o" aria-hidden="true"></i> : <i className="fa fa-comment-o" aria-hidden="true"></i>}
+      <button title="Reply" type="button" className="btn btn-default" onClick={this.open}>{this.props.editing ? <i className="fa fa-pencil-square-o" aria-hidden="true"></i> : <i className="fa fa-comment-o" aria-hidden="true"></i>}
        <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
             <Modal.Title>Enter Comment Details</Modal.Title>

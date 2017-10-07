@@ -3,7 +3,7 @@ import { FETCH_COMMENTS, ADD_COMMENT, COMMIT_COMMENT_EDIT, COMMENT_DELETED, UPVO
 export default function(state = [], action) {
     switch(action.type) {
         case FETCH_COMMENTS:
-            // We want to return all the comments
+            // We want to return all the comments for a specific post.
             return action.payload.data
             
         case ADD_COMMENT:
@@ -51,8 +51,8 @@ export default function(state = [], action) {
                 
             })
 
+        default:
+            return state
 
     }
-    return state
 }
-

@@ -6,11 +6,13 @@ import NewPostControl from './NewPostControl'
 import arraySort from 'array-sort'
 import CategoryDropdown from './CategoryDropdown'
 import SortByDropdown from './SortByDropdown'
+import PostItem from './PostItemComponent'
+import PostDetail from './PostDetail'
 
 class PostList extends Component {
     constructor(props) {
         super(props)
-        this.onSelectPost = this.onSelectPost.bind(this)
+     
     }
 
     componentDidMount() {
@@ -19,67 +21,61 @@ class PostList extends Component {
         this.props.changeCategoryFilter(cat)
     }
     
-    onSelectPost(post) {
-        // What does this do? It should update
-        this.props.fetchPost(post)
-
-        // And this?
-        this.props.fetchComments(post.id)
-    }
-
     render() {
+        
+        // If an id has not been specified, then we want the whole list for the specified category, or all for the root
+        if(!this.props.match.params.id) {
 
-        if(!this.props.posts || this.props.posts.length === 0) {
+            // Take a copy of the current list so it can be filtered and sorted later if needed
+            let posts = this.props.posts
+
+            // First sort
+            switch(this.props.sortByValue) {
+                case 'Most Recent':
+                    arraySort(posts, 'timestamp', {reverse: true})
+                    break
+                case 'Least Recent':
+                    arraySort(posts, 'timestamp')
+                    break
+                case 'Vote Score':
+                default:
+                    arraySort(posts, 'voteScore')
+
+            }
+
+            // Now filter
+            if(this.props.match.params.category !== 'None' && this.props.match.params.category !== undefined) {
+                posts = posts.filter((post) => {
+                    return post.category === this.props.match.params.category
+                })
+            }
+
             return(
-                <div></div>
+                <div>
+                    <div className="col-md-9">
+                        <ul className="post-list">
+                            {posts.map((post) => {
+                                return(
+                                    <li key={post.id}><PostItem post={post}/></li>
+                                )
+                            })}
+                        </ul>
+                    </div>
+                    <div className="col-md-3 new-post-control">
+                        <NewPostControl categories={this.props.categories} editing={false} />
+                        <CategoryDropdown />
+                        <SortByDropdown />
+                    </div>
+                </div>
+            )
+        } else {
+            return (
+                
+                <div>
+                    <PostDetail postId={this.props.match.params.id}/>
+                </div>
             )
         }
-
-        // Why take a copy? Without a copy we rip apart the state forming the list when we filter.
-        // You'd have to run off and grab a fresh copy with a new api call each time.
-        // Or store separate lists...there are other ways of doing this...
-
-        // Take a copy of the current list:
-        let posts = this.props.posts
-
-        // First sort
-        switch(this.props.sortByValue) {
-            case 'Most Recent':
-                arraySort(posts, 'timestamp', {reverse: true})
-                break
-            case 'Least Recent':
-                arraySort(posts, 'timestamp')
-                break
-            case 'Vote Score':
-            default:
-                arraySort(posts, 'voteScore')
-
-        }
-
-        // Now filter
-        if(this.props.match.params.category !== 'None' && this.props.match.params.category !== undefined) {
-            posts = posts.filter((post) => {
-                return post.category === this.props.match.params.category
-            })
-        }
-
-        return(
-
-            <div>
-                <CategoryDropdown />
-                <SortByDropdown />
-                <h4>Posts</h4>
-                <NewPostControl categories={this.props.categories} editing={false} />
-                <ul className="post-list">
-                    {posts.map((post) => {
-                        return(
-                            <li className="post-item" onClick={() => this.onSelectPost(post)} key={post.id}>{post.title}</li>
-                        )
-                    })}
-                </ul>
-                
-            </div>
-        )
     }
 }
 
@@ -89,7 +85,8 @@ function mapStateToProps(state) {
         comments: state.currentComments,
         sortByValue: state.sortByValue,
         catFilter: state.catFilter,
-        categories: state.categories
+        categories: state.categories,
+        selectedPost: state.latestPost
     }
 }
 function mapDispatchToProps(dispatch) {

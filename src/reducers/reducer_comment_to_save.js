@@ -1,13 +1,4 @@
-// This represents a comment in construction via the form on the modal used to create or edit a comment
-
 import { COMMENT_TO_SAVE_UPDATED, EDIT_COMMENT_INSTIGATED } from '../actions/types'
-
-
-/*
-What does a category look like? This will form the dummy data.
-
-*/
-
 
 // Default return
 const dummyReturn = {
@@ -33,13 +24,13 @@ export default function(state = dummyReturn, action) {
                 voteScore: 0
             }
 
-
             case EDIT_COMMENT_INSTIGATED:
-            return {
-                ...action.payload
-            }
+                return {
+                    ...action.payload
+                }
+
+            default:
+                return state
     }
-    
-    return state
 }
 
