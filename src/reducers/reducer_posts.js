@@ -10,12 +10,10 @@ export default function(state = [], action) {
             return onlynondeleted.map((post) => {
                 return {
                     ...post,
-                    voteScore: post.voteScore ? post.voteScore : 0,
+                    voteScore: post.voteScore === undefined ? 1 : post.voteScore,
                     commentCount: action.commentCounts[post.id] ? action.commentCounts[post.id] : 0
                 }
             })
-            
-
         case ADD_POST:
             return [...state, action.payload]
         case DELETE_POST:
@@ -37,7 +35,7 @@ export default function(state = [], action) {
         case UPVOTE_POST:
             return state.map((post) => {
                 if(post.id === action.payload) {
-                    post.voteScore = (post.voteScore ? post.voteScore : 0);
+                    post.voteScore = post.voteScore === undefined ? 1 : post.voteScore
                     post.voteScore += 1;
                 }
                 return post
@@ -45,7 +43,7 @@ export default function(state = [], action) {
         case DOWNVOTE_POST:
             return state.map((post) => {
                 if(post.id === action.payload) {
-                    post.voteScore = (post.voteScore ? post.voteScore : 0);
+                    post.voteScore = post.voteScore === undefined ? 1 : post.voteScore
                     post.voteScore -= 1;
                 }
                 return post

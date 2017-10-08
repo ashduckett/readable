@@ -67,7 +67,6 @@ class NewPostControl extends Component {
     // LatestPost is controlled by reducer_post
 
     // I think you want to pass in the latestpost here
-    console.log('post is ', this.props.postToEdit)
 
     if(this.props.editing) {
       this.props.editPostToSave(this.props.postToEdit)
@@ -146,5 +145,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewPostControl)
-
-//ReactDOM.render(<NewPostControl />, document.getElementById('root'));

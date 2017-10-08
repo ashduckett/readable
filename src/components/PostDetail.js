@@ -6,7 +6,6 @@ import EditPostControl from './EditPostControl'
 import NewCommentControl from './NewCommentControl'
 import VoteControl from './VoteControl'
 import Comment from './Comment'
-import { Button, Modal, FormControl, ControlLabel, FormGroup, MenuItem, DropdownButton } from 'react-bootstrap'
 import '../font-awesome/css/font-awesome.min.css'
 import { Link } from 'react-router-dom'
 
@@ -54,7 +53,6 @@ class PostDetail extends Component {
                             )
                         })
                     }
-                    
                 </div>
             )
         }
@@ -63,38 +61,36 @@ class PostDetail extends Component {
     render() {
         
         if(this.props.latestPost) {
-        return(
-        
-        
-            <div className="panel panel-default">
-                <div className="panel-heading">
-                    <div className="panel-title">{this.props.latestPost.title} by {this.props.latestPost.author}</div>
-                </div>
-                <div className="panel-body">
-                    <div className="post-container">
-                        <div className="post">
-                            
-                            <p>{this.props.latestPost.body}</p>
-                            <div className="btn-group" role="group" aria-label="...">
-                                <EditPostControl postToEdit={this.props.latestPost} />
-                                <Link onClick={(e) => this.handleDelete(e)} to={'/None'} type="button" className="btn btn-default"><i className="fa fa-trash-o" aria-hidden="true"></i></Link>
-                                <NewCommentControl editing={false} />
-                            </div>
-                        </div>
-                        <VoteControl upVote={this.handleUpVote} downVote={this.handleDownVote} score={this.props.latestPost.voteScore}  id={this.props.latestPost.id} />
+            return(
+                <div className="panel panel-default">
+                    <div className="panel-heading">
+                        <div className="panel-title">{this.props.latestPost.title} by {this.props.latestPost.author}</div>
                     </div>
-                    
-                    {
-                        this.renderComments()
-                    }
+                    <div className="panel-body">
+                        <div className="post-container">
+                            <div className="post">
+                                
+                                <p>{this.props.latestPost.body}</p>
+                                <div className="btn-group" role="group" aria-label="...">
+                                    <EditPostControl postToEdit={this.props.latestPost} />
+                                    <Link onClick={(e) => this.handleDelete(e)} to={'/None'} type="button" className="btn btn-default"><i className="fa fa-trash-o" aria-hidden="true"></i></Link>
+                                    <NewCommentControl editing={false} />
+                                </div>
+                            </div>
+                            <VoteControl upVote={this.handleUpVote} downVote={this.handleDownVote} score={this.props.latestPost.voteScore}  id={this.props.latestPost.id} />
+                        </div>
+                        
+                        {
+                            this.renderComments()
+                        }
+                    </div>
                 </div>
-            </div>
-        )
-    } else {
-        return(
-            <p>no!</p>
-        )
-    }
+            )
+        } else {
+            return(
+                <p>Sorry. We couldn't find that post.</p>
+            )
+        }
     }
 }
 

@@ -10,14 +10,7 @@ export function fetchPosts() {
         headers: { 'Authorization': 'whatever-you-want' }
     })
 
-    const request = axiosInstance.get('/posts');// .then(function(data) {
-    //    console.log(data)
-    //})
-    
-/*    return {
-        type: FETCH_POSTS,
-        payload: request
-    }*/
+    const request = axiosInstance.get('/posts');
 
     let commentCounts = []
     let postsToSend = []
@@ -44,10 +37,6 @@ export function fetchPosts() {
             }
         })
     }
-}
-
-export function test() {
-
 }
 
 export function fetchPost(post) {
@@ -219,20 +208,7 @@ export function editPostToSave(post) {
     }
 }
 
-// Redux way of doing the form.
-
-// You enter data into the form.
-// You need that data stored onChange().
-// How about an updatePostToSave() method?
-// Then, when you hit save, you could call save passing in the connected-to-the-modal post?
-
 export function commentToSaveEdited(fieldName, value, parentId) {
-
-    // In this case there's no request. We're just passing through the comment to
-    // the reducers. In the case of our reducer_comment_to_save reducer, we'll
-    // return the state so we can have an updated version of the entire
-    // comment. Purpose? Validation. Plus we always have one version of the truth for the comment
-    // currently being created or edited.
     return {
         type: COMMENT_TO_SAVE_UPDATED,
         fieldName,
@@ -303,6 +279,7 @@ export function editCommentCommitted(comment) {
     return {
         type: COMMIT_COMMENT_EDIT,
         payload: comment,
+        request
     }
 }
 

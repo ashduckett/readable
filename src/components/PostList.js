@@ -10,10 +10,6 @@ import PostItem from './PostItemComponent'
 import PostDetail from './PostDetail'
 
 class PostList extends Component {
-    constructor(props) {
-        super(props)
-     
-    }
 
     componentDidMount() {
         this.props.fetchPosts()

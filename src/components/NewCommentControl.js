@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { addPost } from '../actions/index'
 import { bindActionCreators } from 'redux'
 import { updatePostToSave, editPostToSave, editPost, commentToSaveEdited, addComment, editCommentInstigated, editCommentCommitted } from '../actions/index'
-import axios from 'axios'
+
 class NewCommentControl extends Component {
 
   constructor(props) {

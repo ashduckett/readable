@@ -108,15 +108,12 @@
   visibility: visible;
 }
 
-
-
 .post {
   display: flex;
 }
 .dropdown-toggle {
   width: 100%;
 }
-
 
 .post-controls {
   margin-left: auto;
@@ -129,6 +126,7 @@
   font-size: 22px;
   color: black;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .voter:visited {

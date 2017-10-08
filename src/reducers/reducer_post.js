@@ -7,7 +7,7 @@ export default function(state = null, action) {
         case FETCH_LATEST_POST:
             return {
                 ...action.payload,
-                voteScore: action.payload.voteScore !== null ? action.payload.voteScore : 0
+                voteScore: action.payload.voteScore === undefined ? 1 : action.payload.voteScore
             }
         case UPDATE_POST:
             return {
@@ -16,19 +16,16 @@ export default function(state = null, action) {
                 body: action.payload.body,
             }
         case UPVOTE_POST:
-        console.log('upvoting')
             return {
                 ...state,
                 voteScore: state.voteScore + 1
             }
 
         case DOWNVOTE_POST:
-        console.log('downvoting')
-        console.log(state)
-        return {
-            ...state,
-            voteScore: state.voteScore - 1
-        }
+            return {
+                ...state,
+                voteScore: state.voteScore - 1
+            }
         case FETCH_POST_BY_ID:
             return {
                 ...action.payload.data

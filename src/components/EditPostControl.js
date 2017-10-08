@@ -4,9 +4,6 @@ import NewPostControl from './NewPostControl'
 import { connect } from 'react-redux'
 
 class EditPostControl extends Component {
-    constructor(props) {
-        super(props)
-    }
 
     render() {
         return(

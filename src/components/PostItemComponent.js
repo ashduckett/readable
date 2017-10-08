@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import VoteControl from './VoteControl'
 import EditPostControl from './EditPostControl'
-import NewCommentControl from './NewCommentControl'
 import { bindActionCreators } from 'redux'
 import { deletePost, fetchPost, upVotePost, downVotePost, fetchComments } from '../actions/index'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
 import '../font-awesome/css/font-awesome.min.css'
 
 class PostItem extends Component {
@@ -16,13 +14,23 @@ class PostItem extends Component {
         this.handleDownVote = this.handleDownVote.bind(this)
     }
 
-    handleUpVote() {
+    componentDidMount() {
         this.props.fetchPost(this.props.post.id)
+    }
+
+    handleUpVote() {
+        // Update latestPost
+        //this.props.fetchPost(this.props.post.id)
+
+        // Perform up vote
         this.props.upVotePost(this.props.post.id)
     }
 
     handleDownVote() {
-        this.props.fetchPost(this.props.post.id)
+        // Update latestPost
+        //this.props.fetchPost(this.props.post.id)
+
+        // Perform down vote
         this.props.downVotePost(this.props.post.id)
     }
 
@@ -31,7 +39,6 @@ class PostItem extends Component {
     }
 
     render() {
-        
         return(
             <div className="post-item">
                 <div className="post-item-left">
@@ -65,4 +72,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostItem)
-//export default PostItem

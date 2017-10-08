@@ -7,7 +7,6 @@ import CommentsReducer from './reducer_comments'
 import CommentToSaveReducer from './reducer_comment_to_save'
 import SortByFilterReducer from './reducer_sort_by_value'
 import CategoryFilterReducer from './reducer_category_filter'
-import AllCommentsReducer from './reducer_all_comments'
 
 const rootReducer = combineReducers({
     posts: PostsReducer,
@@ -18,7 +17,6 @@ const rootReducer = combineReducers({
     currentComments: CommentsReducer,
     sortByValue: SortByFilterReducer,
     catFilter: CategoryFilterReducer,
-    allComments: AllCommentsReducer
 })
 
 export default rootReducer
